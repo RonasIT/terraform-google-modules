@@ -5,7 +5,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_developer"></a> [developer](#module\_developer) | terraform-google-modules/iam/google//modules/custom_role_iam | ~>7.6.0 |
+| <a name="module_developer"></a> [developer](#module\_developer) | terraform-google-modules/iam/google//modules/custom_role_iam | ~>7.7.0 |
 | <a name="module_gitlab"></a> [gitlab](#module\_gitlab) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_storage"></a> [storage](#module\_storage) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_teamlead"></a> [teamlead](#module\_teamlead) | terraform-google-modules/iam/google//modules/projects_iam | ~> 7.7.0 |

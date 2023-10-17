@@ -48,6 +48,7 @@ module "developer" {
   permissions = [
     "container.clusters.get",
     "storage.buckets.list",
+    "cloudsql.instances.connect",
   ]
   excluded_permissions = [
     "resourcemanager.projects.get",
