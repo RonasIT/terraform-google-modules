@@ -29,4 +29,5 @@ module "this" {
   tier                            = var.tier
   backup_configuration            = var.backup_configuration
   deletion_protection_enabled     = var.deletion_protection_enabled
+  ip_configuration                = var.ip_configuration
 }
