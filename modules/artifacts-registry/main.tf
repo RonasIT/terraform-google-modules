@@ -2,7 +2,7 @@ resource "google_artifact_registry_repository" "docker_repository" {
   for_each               = toset(var.docker_repository_ids)
   project                = var.project_id
   provider               = google-beta
-  location               = "europe-west2"
+  location               = var.location
   repository_id          = each.value
   description            = "Managed by Terraform"
   format                 = "DOCKER"
@@ -28,7 +28,7 @@ resource "google_artifact_registry_repository" "docker_repository" {
     id     = "keep-minimum-versions"
     action = "KEEP"
     most_recent_versions {
-      keep_count = 10
+      keep_count = var.keep_count
     }
   }
 }
