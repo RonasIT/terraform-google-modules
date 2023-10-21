@@ -18,6 +18,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_docker_repository_ids"></a> [docker\_repository\_ids](#input\_docker\_repository\_ids) | List of repository ids to create | `set(string)` | `[]` | no |
+| <a name="input_keep_count"></a> [keep\_count](#input\_keep\_count) | Number of most recent versions to keep | `number` | `10` | no |
 | <a name="input_location"></a> [location](#input\_location) | The name of the location this repository is located in | `string` | `"europe-west2"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id where service account will be created | `string` | n/a | yes |
 <!-- END_TF_DOCS -->
