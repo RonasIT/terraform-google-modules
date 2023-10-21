@@ -9,3 +9,6 @@ output:
 sort:
   enabled: true
   by: name
+
+settings:
+  hide-empty: true
