@@ -18,6 +18,16 @@ module "storage" {
   project_roles = ["${var.project_id}=>roles/storage.admin"]
 }
 
+module "additional_service_accounts" {
+  for_each     = { for account in var.additional_service_accounts : account.name => account }
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = [each.value.name]
+  description   = each.value.description
+  generate_keys = each.value.generate_keys
+  project_roles = [for item in each.value.project_roles : "${var.project_id}=>${item}"]
+}
 
 module "teamlead" {
   source   = "terraform-google-modules/iam/google//modules/projects_iam"
@@ -44,6 +54,7 @@ module "developer" {
     "roles/cloudfunctions.viewer",
     "roles/cloudfunctions.invoker",
     "roles/pubsub.viewer",
+    "roles/monitoring.viewer",
   ]
   permissions = [
     "container.clusters.get",
