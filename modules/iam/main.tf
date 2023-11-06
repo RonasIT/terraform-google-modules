@@ -56,6 +56,7 @@ module "developer" {
     "roles/pubsub.viewer",
     "roles/monitoring.viewer",
     "roles/firebase.viewer",
+    "roles/serviceusage.apiKeysViewer",
   ]
   permissions = [
     "container.clusters.get",
