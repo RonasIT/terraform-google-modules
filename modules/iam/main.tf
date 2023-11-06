@@ -55,6 +55,7 @@ module "developer" {
     "roles/cloudfunctions.invoker",
     "roles/pubsub.viewer",
     "roles/monitoring.viewer",
+    "roles/firebase.viewer",
   ]
   permissions = [
     "container.clusters.get",
@@ -62,7 +63,6 @@ module "developer" {
     "cloudsql.instances.connect",
   ]
   excluded_permissions = [
-    "resourcemanager.projects.get",
     "resourcemanager.projects.list"
   ]
   members = var.developer_members
