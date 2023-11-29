@@ -1,5 +1,10 @@
 {
   "conventionalCommits.scopes": [
-    "cloud-sql"
+    "cloud-sql",
+    "artifacts-registry",
+    "iam",
+    "artifacts-registry",
+    "ingress-nginx",
+    "apikeys"
   ]
 }
