@@ -18,6 +18,11 @@ module "nginx-controller" {
       name  = "cert-manager\\.io/cluster-issuer"
       value = var.cluster_issuer_name
       type  = "string"
-    }
+    },
+    {
+      name  = "controller.config.use-forwarded-headers",
+      value = "true"
+      type  = "string"
+    },
   ])
 }
