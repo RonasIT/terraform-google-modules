@@ -18,3 +18,14 @@ output "generated_user_password" {
   value       = module.this.generated_user_password
   sensitive   = true
 }
+
+output "iam_users" {
+  description = "The list of the IAM users with access to the CloudSQL instance"
+  value       = module.this.iam_users
+}
+
+output "additional_users" {
+  description = "List of maps of additional users and passwords"
+  value       = module.this.additional_users
+  sensitive   = true
+}
