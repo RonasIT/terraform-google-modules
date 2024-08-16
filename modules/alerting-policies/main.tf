@@ -1,4 +1,4 @@
-resource "google_monitoring_alert_policy" "alert_policies" {
+resource "google_monitoring_alert_policy" "log_metric_alert_policies" {
   count = length(var.alert_policies)
 
   project = var.project_id
@@ -9,20 +9,10 @@ resource "google_monitoring_alert_policy" "alert_policies" {
   conditions {
     display_name = "${var.alert_policies[count.index].display_name} condition"
     condition_threshold {
-      filter = join(" AND ", flatten([
-        "metric.type=\"${var.alert_policies[count.index].metric_type}\"",
-        "resource.type=\"${var.alert_policies[count.index].resource_type}\"",
-        [for k, v in var.alert_policies[count.index].filter_labels : "resource.label.${k}=\"${v}\""]
-      ]))
-
+      filter          = var.alert_policies[count.index].filter
       duration        = var.alert_policies[count.index].duration
       comparison      = var.alert_policies[count.index].comparison
       threshold_value = var.alert_policies[count.index].threshold
-
-      aggregations {
-        alignment_period   = var.alert_policies[count.index].alignment_period
-        per_series_aligner = var.alert_policies[count.index].per_series_aligner
-      }
     }
   }
 
