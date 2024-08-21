@@ -1,15 +1,17 @@
 resource "google_logging_metric" "log_metric" {
+  for_each = { for metric in var.metrics : metric.metric_name => metric }
+
   project     = var.project_id
-  name        = var.metric_name
-  description = var.metric_description
-  filter      = var.filter
+  name        = each.value.metric_name
+  description = each.value.metric_description
+  filter      = each.value.filter
 
   metric_descriptor {
-    metric_kind = var.metric_kind
-    value_type  = var.value_type
+    metric_kind = each.value.metric_kind
+    value_type  = each.value.value_type
 
     dynamic "labels" {
-      for_each = var.label_extractors
+      for_each = each.value.label_extractors
       content {
         key         = labels.key
         value_type  = "STRING"
@@ -18,6 +20,5 @@ resource "google_logging_metric" "log_metric" {
     }
   }
 
-
-  value_extractor = var.value_extractor
+  value_extractor = each.value.value_extractor
 }

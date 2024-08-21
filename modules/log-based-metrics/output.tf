@@ -1,5 +1,4 @@
-output "metric_name" {
-  value       = google_logging_metric.log_metric.id
-  description = "ID of metric that was a created "
-  sensitive   = false
+output "metric_ids" {
+  description = "IDs of the log-based metrics"
+  value       = { for name, metric in google_logging_metric.log_metric : name => metric.id }
 }

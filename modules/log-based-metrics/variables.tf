@@ -3,41 +3,15 @@ variable "project_id" {
   type        = string
 }
 
-variable "metric_name" {
-  description = "The name of the log-based metric."
-  type        = string
-}
-
-variable "metric_description" {
-  description = "A description of the log-based metric."
-  type        = string
-}
-
-variable "filter" {
-  description = "The filter expression for the log-based metric."
-  type        = string
-}
-
-variable "metric_kind" {
-  description = "The type of metric, either DELTA, GAUGE, or CUMULATIVE."
-  type        = string
-  default     = "DELTA"
-}
-
-variable "value_type" {
-  description = "The type of value the metric collects, such as BOOL, INT64, DOUBLE, STRING, or DISTRIBUTION."
-  type        = string
-  default     = "INT64"
-}
-
-variable "value_extractor" {
-  description = "A value extraction expression for the log-based metric."
-  type        = string
-  default     = null
-}
-
-variable "label_extractors" {
-  description = "A map of label extractors where the key is the label name and the value is the extractor expression."
-  type        = map(string)
-  default     = {}
+variable "metrics" {
+  description = "A list of log-based metrics configurations."
+  type = list(object({
+    metric_name        = string
+    metric_description = string
+    filter             = string
+    metric_kind        = string
+    value_type         = string
+    value_extractor    = string
+    label_extractors   = map(string)
+  }))
 }
