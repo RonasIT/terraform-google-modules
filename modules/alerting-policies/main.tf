@@ -1,4 +1,4 @@
-resource "google_monitoring_alert_policy" "log_metric_alert_policies" {
+resource "google_monitoring_alert_policy" "cpu_utilization_alert_policy" {
   count = length(var.alert_policies)
 
   project = var.project_id
@@ -13,6 +13,13 @@ resource "google_monitoring_alert_policy" "log_metric_alert_policies" {
       duration        = var.alert_policies[count.index].duration
       comparison      = var.alert_policies[count.index].comparison
       threshold_value = var.alert_policies[count.index].threshold
+      trigger {
+        count = var.alert_policies[count.index].trigger_count
+      }
+      aggregations {
+        alignment_period   = var.alert_policies[count.index].alignment_period
+        per_series_aligner = var.alert_policies[count.index].per_series_aligner
+      }
     }
   }
 
