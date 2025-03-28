@@ -6,6 +6,7 @@ module "gitlab" {
   description   = "Service account for Gitlab CI/CD"
   generate_keys = true
   project_roles = ["${var.project_id}=>roles/editor"]
+  count         = var.create_single_gitlab_account ? 1 : 0
 }
 
 module "api" {
