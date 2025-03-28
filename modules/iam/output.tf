@@ -7,17 +7,17 @@ output "gitlab_key" {
   sensitive = true
 }
 
-output "storage_email" {
-  value = module.storage.email
+output "api_email" {
+  value = module.api.email
 }
 
-output "storage_key" {
-  value     = module.storage.key
+output "api_key" {
+  value     = module.api.key
   sensitive = true
 }
 
 output "additional_service_accounts" {
-  value = module.additional_service_accounts
+  value       = module.additional_service_accounts
   description = "Additional service accounts"
-  sensitive = true
+  sensitive   = true
 }

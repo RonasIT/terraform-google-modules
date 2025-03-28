@@ -8,18 +8,20 @@ module "gitlab" {
   project_roles = ["${var.project_id}=>roles/editor"]
 }
 
-module "storage" {
+module "api" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
-  names         = ["storage"]
-  description   = "Service account for managing storage buckets"
+  names         = [var.api_serviceaccount_name]
+  description   = "Service account for API"
   generate_keys = true
-  project_roles = ["${var.project_id}=>roles/storage.admin"]
+  project_roles = [
+    for role in var.api_serviceaccount_roles : "${var.project_id}=>${role}"
+  ]
 }
 
 module "additional_service_accounts" {
-  for_each     = { for account in var.additional_service_accounts : account.name => account }
+  for_each      = { for account in var.additional_service_accounts : account.name => account }
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
