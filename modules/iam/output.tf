@@ -1,9 +1,9 @@
 output "gitlab_email" {
-  value = module.gitlab.email
+  value = module.gitlab[0].email
 }
 
 output "gitlab_key" {
-  value     = module.gitlab.key
+  value     = module.gitlab[0].key
   sensitive = true
 }
 
