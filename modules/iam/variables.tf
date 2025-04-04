@@ -31,11 +31,6 @@ variable "api_serviceaccount_name" {
   type        = string
 }
 
-variable "api_serviceaccount_roles" {
-  description = "list of roles for API Service Account"
-  type        = list(string)
-}
-
 variable "additional_api_roles" {
   description = "List of additional API roles"
   type        = list(string)
