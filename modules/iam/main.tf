@@ -15,10 +15,38 @@ module "api" {
   project_id    = var.project_id
   names         = [var.api_serviceaccount_name]
   description   = "Service account for API"
-  generate_keys = true
+  generate_keys = var.generate_api_keys
   project_roles = [
     for role in var.api_serviceaccount_roles : "${var.project_id}=>${role}"
   ]
+}
+
+module "gitlab_runner_ci" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = ["gitlab"]
+  description   = "Service account for Gitlab CI"
+  generate_keys = var.generate_gitlab_ci_keys
+  project_roles = concat(
+    ["${var.project_id}=>roles/artifactregistry.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_gitlab_ci_roles)
+  )
+  count = var.create_single_gitlab_account ? 0 : 1
+}
+
+module "gitlab_runner_cd" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = ["gitlab"]
+  description   = "Service account for Gitlab CD"
+  generate_keys = var.generate_gitlab_cd_keys
+  project_roles = concat(
+    ["${var.project_id}=>roles/roles/container.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_gitlab_cd_roles)
+  )
+  count = var.create_single_gitlab_account ? 0 : 1
 }
 
 module "additional_service_accounts" {
