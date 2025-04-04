@@ -36,6 +36,12 @@ variable "api_serviceaccount_roles" {
   type        = list(string)
 }
 
+variable "additional_api_roles" {
+  description = "List of additional API roles"
+  type        = list(string)
+  default     = []
+}
+
 variable "generate_api_keys" {
   description = "Whether to generate keys for gitlab CD service account"
   type        = bool

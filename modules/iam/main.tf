@@ -16,9 +16,10 @@ module "api" {
   names         = [var.api_serviceaccount_name]
   description   = "Service account for API"
   generate_keys = var.generate_api_keys
-  project_roles = [
-    for role in var.api_serviceaccount_roles : "${var.project_id}=>${role}"
-  ]
+  project_roles = concat(
+    ["${var.project_id}=>roles/storage.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_api_roles)
+  )
 }
 
 module "gitlab_runner_ci" {
