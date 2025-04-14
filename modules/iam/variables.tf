@@ -29,6 +29,7 @@ variable "additional_service_accounts" {
 variable "api_serviceaccount_name" {
   description = "name for API Service Account"
   type        = string
+  default     = "api"
 }
 
 variable "additional_api_roles" {
