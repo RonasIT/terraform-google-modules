@@ -1,4 +1,4 @@
-resource "google_monitoring_alert_policy" "cpu_utilization_alert_policy" {
+resource "google_monitoring_alert_policy" "alert_policy" {
   count = length(var.alert_policies)
 
   project = var.project_id

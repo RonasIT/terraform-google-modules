@@ -6,20 +6,52 @@ module "gitlab" {
   description   = "Service account for Gitlab CI/CD"
   generate_keys = true
   project_roles = ["${var.project_id}=>roles/editor"]
+  count         = var.create_single_gitlab_account ? 1 : 0
 }
 
-module "storage" {
+module "api" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
-  names         = ["storage"]
-  description   = "Service account for managing storage buckets"
-  generate_keys = true
-  project_roles = ["${var.project_id}=>roles/storage.admin"]
+  names         = [var.api_serviceaccount_name]
+  description   = "Service account for API"
+  generate_keys = var.generate_api_keys
+  project_roles = concat(
+    ["${var.project_id}=>roles/storage.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_api_roles)
+  )
+}
+
+module "gitlab_runner_ci" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = ["gitlab"]
+  description   = "Service account for Gitlab CI"
+  generate_keys = var.generate_gitlab_ci_keys
+  project_roles = concat(
+    ["${var.project_id}=>roles/artifactregistry.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_gitlab_ci_roles)
+  )
+  count = var.create_single_gitlab_account ? 0 : 1
+}
+
+module "gitlab_runner_cd" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = ["gitlab"]
+  description   = "Service account for Gitlab CD"
+  generate_keys = var.generate_gitlab_cd_keys
+  project_roles = concat(
+    ["${var.project_id}=>roles/roles/container.admin"],
+    formatlist("${var.project_id}=>%s", var.additional_gitlab_cd_roles)
+  )
+  count = var.create_single_gitlab_account ? 0 : 1
 }
 
 module "additional_service_accounts" {
-  for_each     = { for account in var.additional_service_accounts : account.name => account }
+  for_each      = { for account in var.additional_service_accounts : account.name => account }
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
