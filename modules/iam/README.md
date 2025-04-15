@@ -42,3 +42,43 @@
 | <a name="output_gitlab_runner_cd_key"></a> [gitlab\_runner\_cd\_key](#output\_gitlab\_runner\_cd\_key) | n/a |
 | <a name="output_gitlab_runner_ci_key"></a> [gitlab\_runner\_ci\_key](#output\_gitlab\_runner\_ci\_key) | n/a |
 <!-- END_TF_DOCS -->
+
+## Upgrading
+
+### To 0.7.0
+
+Without these state migrations, Terraform would destroy and recreate resources when module paths change, causing potential downtime and data loss.
+
+```sh
+terragrunt state mv \
+  "module.gitlab.google_project_iam_member.project-roles[\"gitlab-coronation-insurance-kenya=>roles/editor\"]" \
+  "module.gitlab[0].google_project_iam_member.project-roles[\"gitlab-coronation-insurance-kenya=>roles/editor\"]"
+
+terragrunt state mv \
+  "module.gitlab.google_service_account.service_accounts[\"gitlab\"]" \
+  "module.gitlab[0].google_service_account.service_accounts[\"gitlab\"]"
+
+terragrunt state mv \
+  "module.gitlab.google_service_account_key.keys[\"gitlab\"]" \
+  "module.gitlab[0].google_service_account_key.keys[\"gitlab\"]"
+
+terragrunt state mv \
+  "module.storage.google_service_account.service_accounts[\"storage\"]" \
+  "module.api.google_service_account.service_accounts[\"storage\"]"
+
+terragrunt state mv \
+  "module.storage.google_service_account_key.keys[\"storage\"]" \
+  "module.api.google_service_account.service_accounts[\"storage\"]"
+
+terragrunt state mv \
+  "module.storage.google_project_iam_member.project-roles[\"storage-coronation-insurance-kenya=>roles/storage.admin\"]" \
+  "module.api.google_project_iam_member.project-roles[\"storage-coronation-insurance-kenya=>roles/storage.admin\"]"
+
+terragrunt state mv \
+  "module.storage.google_service_account_key.keys["\storage"\]" \
+  "module.api.google_service_account_key.keys["\storage"\]"
+
+terragrunt state mv \
+  "module.storage.google_service_account_key.keys[\"storage\"]" \
+  "module.api.google_service_account_key.keys[\"storage\"]"
+```
