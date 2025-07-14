@@ -92,3 +92,8 @@ variable "cluster_issuer_name" {
   type        = string
   description = "The name of the cluster issuer (CertManager)"
 }
+variable "chart_version" {
+  type        = string
+  description = "The version of Helm chart"
+  default     = "4.13"
+}

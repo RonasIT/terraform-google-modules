@@ -6,8 +6,9 @@ resource "google_compute_address" "this" {
 
 module "nginx-controller" {
   source           = "terraform-iaac/nginx-controller/helm"
-  version          = "~>2.2.2"
+  version          = "~>2.3.0"
   ip_address       = google_compute_address.this.address
+  chart_version    = var.chart_version
   namespace        = var.namespace
   create_namespace = var.create_namespace
   controller_kind  = var.controller_kind
