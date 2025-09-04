@@ -1,6 +1,6 @@
 module "this" {
   source                          = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version                         = "16.1.0"
+  version                         = "26.2.0"
   project_id                      = var.project_id
   name                            = var.name
   database_version                = var.database_version
@@ -29,4 +29,5 @@ module "this" {
   additional_databases            = var.additional_databases
   additional_users                = var.additional_users
   iam_users                       = var.iam_users
+  edition                         = var.edition
 }
