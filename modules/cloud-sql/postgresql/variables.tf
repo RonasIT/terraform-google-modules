@@ -13,7 +13,7 @@ variable "name" {
 variable "database_version" {
   description = "The database version to use"
   type        = string
-  default     = "POSTGRES_14"
+  default     = "POSTGRES_17"
 
   validation {
     condition     = (length(var.database_version) >= 9 && ((upper(substr(var.database_version, 0, 9)) == "POSTGRES_") && can(regex("^\\d+(?:_?\\d)*$", substr(var.database_version, 9, -1))))) || can(regex("^\\d+(?:_?\\d)*$", var.database_version))
@@ -237,4 +237,10 @@ variable "iam_users" {
     email = string
   }))
   default = []
+}
+
+variable "edition" {
+  description = "Edition of instance to be created, ENTERPRISE or ENTERPRISE_PLUS"
+  type        = string
+  default     = "ENTERPRISE"
 }
