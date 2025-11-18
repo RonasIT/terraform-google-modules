@@ -96,7 +96,8 @@ module "developer" {
     "cloudsql.instances.connect",
   ]
   excluded_permissions = [
-    "resourcemanager.projects.list"
+    "resourcemanager.projects.list",
+    "eventarc.multiProjectSources.collectGoogleApiEvents"
   ]
   members = var.developer_members
 }
