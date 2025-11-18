@@ -29,7 +29,7 @@ variable "additional_service_accounts" {
 variable "api_serviceaccount_name" {
   description = "name for API Service Account"
   type        = string
-  default     = "api"
+  default     = "backend"
 }
 
 variable "api_roles" {
@@ -65,7 +65,7 @@ variable "generate_gitlab_ci_keys" {
 variable "gitlab_ci_roles" {
   description = "List of roles for Gitlab CI runner (can be fully overridden)"
   type        = list(string)
-  default     = ["roles/artifactregistry.admin"]
+  default     = ["roles/artifactregistry.admin", "roles/storage.admin", "roles/iam.serviceAccountTokenCreator"]
 }
 
 variable "generate_gitlab_cd_keys" {
