@@ -32,10 +32,10 @@ variable "api_serviceaccount_name" {
   default     = "api"
 }
 
-variable "additional_api_roles" {
-  description = "List of additional API roles"
+variable "api_roles" {
+  description = "List of roles for API service account (can be fully overridden)"
   type        = list(string)
-  default     = []
+  default     = ["roles/storage.admin"]
 }
 
 variable "generate_api_keys" {
@@ -50,10 +50,22 @@ variable "create_single_gitlab_account" {
   default     = false
 }
 
+variable "gitlab_roles" {
+  description = "List of roles for single Gitlab service account (can be fully overridden)"
+  type        = list(string)
+  default     = ["roles/editor"]
+}
+
 variable "generate_gitlab_ci_keys" {
   description = "Whether to generate keys for gitlab CI service account"
   type        = bool
   default     = false
+}
+
+variable "gitlab_ci_roles" {
+  description = "List of roles for Gitlab CI runner (can be fully overridden)"
+  type        = list(string)
+  default     = ["roles/artifactregistry.admin"]
 }
 
 variable "generate_gitlab_cd_keys" {
@@ -62,14 +74,8 @@ variable "generate_gitlab_cd_keys" {
   default     = false
 }
 
-variable "additional_gitlab_ci_roles" {
-  description = "List of additional roles for Gitlab CI runner"
+variable "gitlab_cd_roles" {
+  description = "List of roles for Gitlab CD runner (can be fully overridden)"
   type        = list(string)
-  default     = []
-}
-
-variable "additional_gitlab_cd_roles" {
-  description = "List of additional roles for Gitlab CD runner"
-  type        = list(string)
-  default     = []
+  default     = ["roles/container.admin"]
 }
