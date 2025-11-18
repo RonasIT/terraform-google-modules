@@ -26,7 +26,7 @@ module "gitlab_runner_ci" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
-  names         = ["gitlab"]
+  names         = ["gitlab-ci"]
   description   = "Service account for Gitlab CI"
   generate_keys = var.generate_gitlab_ci_keys
   project_roles = concat(
@@ -40,7 +40,7 @@ module "gitlab_runner_cd" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~>4.2.1"
   project_id    = var.project_id
-  names         = ["gitlab"]
+  names         = ["gitlab-cd"]
   description   = "Service account for Gitlab CD"
   generate_keys = var.generate_gitlab_cd_keys
   project_roles = concat(
