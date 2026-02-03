@@ -63,8 +63,12 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network    = var.network
     subnetwork = var.subnetwork_self_link
-    access_config {
-      nat_ip = each.value.assign_static_ip ? google_compute_address.vm_static_ip[each.value.name].address : null
+
+    dynamic "access_config" {
+      for_each = each.value.assign_static_ip ? [1] : []
+      content {
+        nat_ip = google_compute_address.vm_static_ip[each.value.name].address
+      }
     }
   }
 
