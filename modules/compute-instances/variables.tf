@@ -97,7 +97,7 @@ variable "network_tag" {
   default     = "vms"
 
   validation {
-    condition     = can(regex("^[a-z][-a-z0-9]*$", var.network_tag))
+    condition     = can(regex("^[a-z][-a-z0-9]*[a-z0-9]$", var.network_tag))
     error_message = "Network tag must start with a lowercase letter and contain only lowercase letters, numbers, and hyphens."
   }
 }
