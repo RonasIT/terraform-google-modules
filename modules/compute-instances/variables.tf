@@ -30,12 +30,12 @@ variable "vms" {
     })), [])
     ingress_rules = optional(list(object({
       protocol      = string
-      ports         = list(string)
+      ports         = optional(list(string))
       source_ranges = list(string)
     })), [])
     egress_rules = optional(list(object({
       protocol           = string
-      ports              = list(string)
+      ports              = optional(list(string))
       destination_ranges = list(string)
     })), [])
   }))
