@@ -15,6 +15,30 @@ variable "developer_members" {
   default     = []
 }
 
+variable "create_agent_viewer" {
+  description = "Whether to create the read-only agent-viewer service account for AI agents / MCP servers"
+  type        = bool
+  default     = false
+}
+
+variable "agent_viewer_name" {
+  description = "Name of the read-only agent-viewer service account"
+  type        = string
+  default     = "agent-viewer"
+}
+
+variable "agent_viewer_roles" {
+  description = "Project roles granted to the agent-viewer service account (read-only by default)"
+  type        = list(string)
+  default     = ["roles/viewer"]
+}
+
+variable "agent_viewer_members" {
+  description = "Members allowed to impersonate the agent-viewer service account, e.g. user:you@example.com"
+  type        = list(string)
+  default     = []
+}
+
 variable "additional_service_accounts" {
   description = "Additional service accounts"
   type = list(object({
