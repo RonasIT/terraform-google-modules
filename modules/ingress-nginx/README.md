@@ -4,26 +4,26 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
-| <a name="module_nginx-controller"></a> [nginx-controller](#module\_nginx-controller) | terraform-iaac/nginx-controller/helm | ~>2.2.2 |
+| ---- | ------ | ------- |
+| <a name="module_nginx-controller"></a> [nginx-controller](#module\_nginx-controller) | terraform-iaac/nginx-controller/helm | ~>2.3.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [google_compute_address.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address) | resource |
 | [google_client_config.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_set"></a> [additional\_set](#input\_additional\_set) | Optional set for additional helm settings | <pre>list(<br/>    object(<br/>      {<br/>        name  = string<br/>        value = string<br/>        type  = optional(string)<br/>      }<br/>    )<br/>  )</pre> | <pre>[<br/>  {<br/>    "name": "controller.resources.limits.cpu",<br/>    "type": "string",<br/>    "value": "125m"<br/>  },<br/>  {<br/>    "name": "controller.resources.limits.memory",<br/>    "type": "string",<br/>    "value": "175Mi"<br/>  },<br/>  {<br/>    "name": "controller.config.proxy-body-size",<br/>    "type": "string",<br/>    "value": "100m"<br/>  },<br/>  {<br/>    "name": "controller.addHeaders.x-robots-tag",<br/>    "type": "string",<br/>    "value": "noindex"<br/>  }<br/>]</pre> | no |
 | <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail | `bool` | `true` | no |
 | <a name="input_ca_certificate"></a> [ca\_certificate](#input\_ca\_certificate) | The CA certificate of the Kubernetes cluster | `string` | n/a | yes |

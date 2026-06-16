@@ -1,11 +1,18 @@
 <!-- BEGIN_TF_DOCS -->
 
 
+## Providers
+
+| Name | Version |
+| ---- | ------- |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_additional_service_accounts"></a> [additional\_service\_accounts](#module\_additional\_service\_accounts) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
+| <a name="module_agent_viewer"></a> [agent\_viewer](#module\_agent\_viewer) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_api"></a> [api](#module\_api) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_developer"></a> [developer](#module\_developer) | terraform-google-modules/iam/google//modules/custom_role_iam | ~>7.7.0 |
 | <a name="module_gitlab"></a> [gitlab](#module\_gitlab) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
@@ -13,15 +20,25 @@
 | <a name="module_gitlab_runner_ci"></a> [gitlab\_runner\_ci](#module\_gitlab\_runner\_ci) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_teamlead"></a> [teamlead](#module\_teamlead) | terraform-google-modules/iam/google//modules/projects_iam | ~> 7.7.0 |
 
+## Resources
+
+| Name | Type |
+| ---- | ---- |
+| [google_service_account_iam_member.agent_viewer_impersonators](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_api_roles"></a> [additional\_api\_roles](#input\_additional\_api\_roles) | List of additional API roles | `list(string)` | `[]` | no |
 | <a name="input_additional_gitlab_cd_roles"></a> [additional\_gitlab\_cd\_roles](#input\_additional\_gitlab\_cd\_roles) | List of additional roles for Gitlab CD runner | `list(string)` | `[]` | no |
 | <a name="input_additional_gitlab_ci_roles"></a> [additional\_gitlab\_ci\_roles](#input\_additional\_gitlab\_ci\_roles) | List of additional roles for Gitlab CI runner | `list(string)` | `[]` | no |
 | <a name="input_additional_service_accounts"></a> [additional\_service\_accounts](#input\_additional\_service\_accounts) | Additional service accounts | <pre>list(object({<br/>    name          = string<br/>    description   = string<br/>    generate_keys = bool<br/>    project_roles = list(string)<br/>  }))</pre> | `[]` | no |
-| <a name="input_api_serviceaccount_name"></a> [api\_serviceaccount\_name](#input\_api\_serviceaccount\_name) | name for API Service Account | `string` | n/a | yes |
+| <a name="input_agent_viewer_members"></a> [agent\_viewer\_members](#input\_agent\_viewer\_members) | Members allowed to impersonate the agent-viewer service account, e.g. user:you@example.com | `list(string)` | `[]` | no |
+| <a name="input_agent_viewer_name"></a> [agent\_viewer\_name](#input\_agent\_viewer\_name) | Name of the read-only agent-viewer service account | `string` | `"agent-viewer"` | no |
+| <a name="input_agent_viewer_roles"></a> [agent\_viewer\_roles](#input\_agent\_viewer\_roles) | Project roles granted to the agent-viewer service account (read-only by default) | `list(string)` | <pre>[<br/>  "roles/viewer"<br/>]</pre> | no |
+| <a name="input_api_serviceaccount_name"></a> [api\_serviceaccount\_name](#input\_api\_serviceaccount\_name) | name for API Service Account | `string` | `"api"` | no |
+| <a name="input_create_agent_viewer"></a> [create\_agent\_viewer](#input\_create\_agent\_viewer) | Whether to create the read-only agent-viewer service account for AI agents / MCP servers | `bool` | `false` | no |
 | <a name="input_create_single_gitlab_account"></a> [create\_single\_gitlab\_account](#input\_create\_single\_gitlab\_account) | Whether to create single gitlab service account | `bool` | `false` | no |
 | <a name="input_developer_members"></a> [developer\_members](#input\_developer\_members) | List of members for developer role | `list(string)` | `[]` | no |
 | <a name="input_generate_api_keys"></a> [generate\_api\_keys](#input\_generate\_api\_keys) | Whether to generate keys for gitlab CD service account | `bool` | `false` | no |
@@ -33,8 +50,9 @@
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_additional_service_accounts"></a> [additional\_service\_accounts](#output\_additional\_service\_accounts) | Additional service accounts |
+| <a name="output_agent_viewer_email"></a> [agent\_viewer\_email](#output\_agent\_viewer\_email) | Email of the read-only agent-viewer service account |
 | <a name="output_api_email"></a> [api\_email](#output\_api\_email) | n/a |
 | <a name="output_api_key"></a> [api\_key](#output\_api\_key) | n/a |
 | <a name="output_gitlab_email"></a> [gitlab\_email](#output\_gitlab\_email) | n/a |
