@@ -61,6 +61,26 @@ module "additional_service_accounts" {
   project_roles = [for item in each.value.project_roles : "${var.project_id}=>${item}"]
 }
 
+module "agent_viewer" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~>4.2.1"
+  project_id    = var.project_id
+  names         = [var.agent_viewer_name]
+  description   = "Read-only identity for AI agents / MCP servers (diagnostics; impersonated, no keys)"
+  generate_keys = false
+  project_roles = [for role in var.agent_viewer_roles : "${var.project_id}=>${role}"]
+  count         = var.create_agent_viewer ? 1 : 0
+}
+
+# Grant the listed principals permission to impersonate the read-only SA
+# (keyless auth: the agent runs as the user and mints short-lived tokens).
+resource "google_service_account_iam_member" "agent_viewer_impersonators" {
+  for_each           = var.create_agent_viewer ? toset(var.agent_viewer_members) : toset([])
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${module.agent_viewer[0].email}"
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = each.value
+}
+
 module "teamlead" {
   source   = "terraform-google-modules/iam/google//modules/projects_iam"
   version  = "~> 7.7.0"

@@ -30,3 +30,8 @@ output "gitlab_runner_cd_key" {
   value     = !var.create_single_gitlab_account ? module.gitlab_runner_cd[0].key : "Account not created"
   sensitive = true
 }
+
+output "agent_viewer_email" {
+  value       = var.create_agent_viewer ? module.agent_viewer[0].email : "Account not created"
+  description = "Email of the read-only agent-viewer service account"
+}
