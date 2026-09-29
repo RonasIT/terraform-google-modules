@@ -83,16 +83,25 @@ resource "google_service_account_iam_member" "agent_viewer_impersonators" {
 
 module "teamlead" {
   source   = "terraform-google-modules/iam/google//modules/projects_iam"
-  version  = "~> 7.7.0"
+  version  = "~> 8.3"
   projects = [var.project_id]
   bindings = {
     "roles/editor" = var.teamlead_members
   }
 }
 
+module "cluster_viewer" {
+  source   = "terraform-google-modules/iam/google//modules/projects_iam"
+  version  = "~> 8.3"
+  projects = [var.project_id]
+  bindings = {
+    "roles/container.clusterViewer" = var.cluster_viewer_members
+  }
+}
+
 module "developer" {
   source       = "terraform-google-modules/iam/google//modules/custom_role_iam"
-  version      = "~>7.7.0"
+  version      = "~> 8.3"
   target_level = "project"
   target_id    = var.project_id
   role_id      = "developer"
@@ -115,8 +124,10 @@ module "developer" {
     "storage.buckets.list",
     "cloudsql.instances.connect",
   ]
+  # Permissions that base roles include but GCP refuses in project-level custom roles.
   excluded_permissions = [
-    "resourcemanager.projects.list"
+    "resourcemanager.projects.list",
+    "eventarc.multiProjectSources.collectGoogleApiEvents",
   ]
   members = var.developer_members
 }

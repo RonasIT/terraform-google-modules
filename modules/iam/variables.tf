@@ -15,6 +15,12 @@ variable "developer_members" {
   default     = []
 }
 
+variable "cluster_viewer_members" {
+  description = "List of members allowed to fetch GKE cluster credentials; access inside the cluster is granted by Kubernetes RBAC"
+  type        = list(string)
+  default     = []
+}
+
 variable "create_agent_viewer" {
   description = "Whether to create the read-only agent-viewer service account for AI agents / MCP servers"
   type        = bool
