@@ -14,11 +14,12 @@
 | <a name="module_additional_service_accounts"></a> [additional\_service\_accounts](#module\_additional\_service\_accounts) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_agent_viewer"></a> [agent\_viewer](#module\_agent\_viewer) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_api"></a> [api](#module\_api) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
-| <a name="module_developer"></a> [developer](#module\_developer) | terraform-google-modules/iam/google//modules/custom_role_iam | ~>7.7.0 |
+| <a name="module_cluster_viewer"></a> [cluster\_viewer](#module\_cluster\_viewer) | terraform-google-modules/iam/google//modules/projects_iam | ~> 8.3 |
+| <a name="module_developer"></a> [developer](#module\_developer) | terraform-google-modules/iam/google//modules/custom_role_iam | ~> 8.3 |
 | <a name="module_gitlab"></a> [gitlab](#module\_gitlab) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_gitlab_runner_cd"></a> [gitlab\_runner\_cd](#module\_gitlab\_runner\_cd) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
 | <a name="module_gitlab_runner_ci"></a> [gitlab\_runner\_ci](#module\_gitlab\_runner\_ci) | terraform-google-modules/service-accounts/google | ~>4.2.1 |
-| <a name="module_teamlead"></a> [teamlead](#module\_teamlead) | terraform-google-modules/iam/google//modules/projects_iam | ~> 7.7.0 |
+| <a name="module_teamlead"></a> [teamlead](#module\_teamlead) | terraform-google-modules/iam/google//modules/projects_iam | ~> 8.3 |
 
 ## Resources
 
@@ -38,6 +39,7 @@
 | <a name="input_agent_viewer_name"></a> [agent\_viewer\_name](#input\_agent\_viewer\_name) | Name of the read-only agent-viewer service account | `string` | `"agent-viewer"` | no |
 | <a name="input_agent_viewer_roles"></a> [agent\_viewer\_roles](#input\_agent\_viewer\_roles) | Project roles granted to the agent-viewer service account (read-only by default) | `list(string)` | <pre>[<br/>  "roles/viewer"<br/>]</pre> | no |
 | <a name="input_api_serviceaccount_name"></a> [api\_serviceaccount\_name](#input\_api\_serviceaccount\_name) | name for API Service Account | `string` | `"api"` | no |
+| <a name="input_cluster_viewer_members"></a> [cluster\_viewer\_members](#input\_cluster\_viewer\_members) | List of members allowed to fetch GKE cluster credentials; access inside the cluster is granted by Kubernetes RBAC | `list(string)` | `[]` | no |
 | <a name="input_create_agent_viewer"></a> [create\_agent\_viewer](#input\_create\_agent\_viewer) | Whether to create the read-only agent-viewer service account for AI agents / MCP servers | `bool` | `false` | no |
 | <a name="input_create_single_gitlab_account"></a> [create\_single\_gitlab\_account](#input\_create\_single\_gitlab\_account) | Whether to create single gitlab service account | `bool` | `false` | no |
 | <a name="input_developer_members"></a> [developer\_members](#input\_developer\_members) | List of members for developer role | `list(string)` | `[]` | no |
